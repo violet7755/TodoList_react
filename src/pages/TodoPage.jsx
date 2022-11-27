@@ -7,7 +7,7 @@ import { Footer, Header, TodoCollection, TodoInput } from 'components';
 const dummyTodos = [
   {
     title: 'Learn react-router',
-    isDone: true,
+    isDone: false,
     id: 1,
   },
   {
@@ -17,7 +17,7 @@ const dummyTodos = [
   },
   {
     title: 'Learn to use context',
-    isDone: true,
+    isDone: false,
     id: 3,
   },
   {
@@ -29,6 +29,9 @@ const dummyTodos = [
 const TodoPage = () => {
   const [inputValue, setInputValue] = useState('');
   const [todos, setTodos] = useState(dummyTodos);
+
+  const todoNums = todos.length;
+
   const handleChange = (value) => {
     setInputValue(value);
   };
@@ -106,6 +109,9 @@ const TodoPage = () => {
       });
     });
   };
+  const handleDelete = (id) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  };
   return (
     <div>
       TodoPage
@@ -121,8 +127,9 @@ const TodoPage = () => {
         onSave={handleSave}
         onToggleDone={handleToggleDone}
         onChangeMode={handleChangeMode}
+        onDelete={handleDelete}
       />
-      <Footer />
+      <Footer numOfTodos={todoNums} />
     </div>
   );
 };
